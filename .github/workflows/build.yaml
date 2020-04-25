@@ -1,0 +1,15 @@
+name: build
+on:
+  - push
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+      - name: docker-login
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: build
+        run: ./build -v build
+      - name: build
+        run: ./build -v deploy

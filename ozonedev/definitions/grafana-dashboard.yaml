@@ -1,0 +1,5 @@
+name: ozone/grafana
+description: Enable grafana for ozone dashboards
+---
+- type: grafana/install-dashboard
+  configmap: ozone-dashboard

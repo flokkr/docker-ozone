@@ -1,0 +1,26 @@
+name: ozone/sslmount
+description: Mount generated ssl directories to the server
+parameters:
+   name: secretname
+---
+- type: add
+  path:
+    - spec
+    - template
+    - spec
+    - volumes
+  value:
+    - name: ssl
+      secret:
+        secretName: {{.secretname}}
+- type: add
+  path:
+    - spec
+    - template
+    - spec
+    - (initC|c)ontainers
+    - .*
+    - volumeMounts
+  value:
+    - name: ssl
+      mountPath: /etc/ssl

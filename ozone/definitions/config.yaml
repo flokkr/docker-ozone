@@ -1,0 +1,15 @@
+name: ozone/config
+---
+- type: add
+  path:
+    - spec
+    - template
+    - spec
+    - (initC|c)ontainers
+    - .*
+    - envFrom
+  value:
+    - configMapRef:
+        name: ozone-config
+
+

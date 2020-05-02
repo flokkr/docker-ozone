@@ -1,0 +1,26 @@
+name: ozone/dev
+description: Run Ozone from local build via docker volume mounts
+---
+- type: image
+  image: elek/ozone-runner
+- type: add
+  path:
+    - spec
+    - template
+    - spec
+    - volumes
+  value:
+    - name: ozone-dev
+      hostPath:
+        path: /home/elek/projects/ozone/hadoop-ozone/dist/target/ozone-0.5.0-SNAPSHOT
+- type: add
+  path:
+      - spec
+      - template
+      - spec
+      - (initC|c)ontainers
+      - .*
+      - volumeMounts
+  value:
+      - name: ozone-dev
+        mountPath: /opt/ozone

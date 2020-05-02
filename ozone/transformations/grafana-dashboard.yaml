@@ -1,0 +1,4 @@
+- type: grafana/install-dashboard
+  scope: global
+  optional: true
+  configmap: ozone-dashboard

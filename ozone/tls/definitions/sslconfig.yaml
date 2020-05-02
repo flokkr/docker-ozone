@@ -1,0 +1,18 @@
+name: ozone/sslconfig
+description: Add ssl related configuration
+---
+- type: add 
+  trigger:
+    metadata:
+      name: ozone-config
+  path: 
+    - data
+  value:
+    SSL-SERVER.XML_ssl.server.exclude.cipher.list: ^.*MD5.*$,^TLS_DH_.*$,^.*RC4.*$,^.*CCM.*$,^TLS_DHE.*$,^.*SHA$,^TLS_RSA_WITH.*$
+    OZONE-SITE.XML_ozone.http.policy: HTTPS_ONLY
+    OZONE-SITE.XML_dfs.http.policy: HTTPS_ONLY
+    SSL-SERVER.XML_ssl.server.keystore.location: /etc/keystore/keystore
+    SSL-SERVER.XML_ssl.server.truststore.location: /etc/keystore/keystore
+    SSL-SERVER.XML_ssl.server.keystore.password: Welcome1
+    SSL-SERVER.XML_ssl.server.keystore.keypassword: Welcome1
+    SSL-SERVER.XML_ssl.server.truststore.password: Welcome1

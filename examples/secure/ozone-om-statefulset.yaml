@@ -1,0 +1,72 @@
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ozone-om
+  labels:
+    app: ozone
+    component: om
+spec:
+  selector:
+    matchLabels:
+      app: ozone
+      component: om
+  serviceName: ozone-om
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ozone
+        component: om
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9874"
+        prometheus.io/path: /prom
+    spec:
+      initContainers:
+      - name: init
+        image: flokkr/ozone@sha256:74abe1431ea2e636de9f769a23278a385d1b09cb4f93fe870d375fa4bfb80f1f
+        args:
+        - ozone
+        - om
+        - --init
+        env:
+        - name: WAITFOR
+          value: ozone-scm-0.ozone-scm:9876
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: keytabs
+          mountPath: /etc/security/keytabs
+        - name: krb5conf
+          mountPath: /etc/krb5.conf
+          subPath: krb5.conf
+        envFrom:
+        - configMapRef:
+            name: ozone-config
+      containers:
+      - name: om
+        image: flokkr/ozone@sha256:74abe1431ea2e636de9f769a23278a385d1b09cb4f93fe870d375fa4bfb80f1f
+        args:
+        - ozone
+        - om
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: keytabs
+          mountPath: /etc/security/keytabs
+        - name: krb5conf
+          mountPath: /etc/krb5.conf
+          subPath: krb5.conf
+        envFrom:
+        - configMapRef:
+            name: ozone-config
+      volumes:
+      - name: data
+        emptyDir: {}
+      - name: keytabs
+        secret:
+          secretName: ozone-om-keytabs
+      - name: krb5conf
+        configMap:
+          name: krb5-conf

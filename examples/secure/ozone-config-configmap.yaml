@@ -1,0 +1,55 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ozone-config
+data:
+  CORE-SITE.XML_fs.defaultFS: o3fs://bucket1.vol1.ozone-om-0.ozone-om/
+  CORE-SITE.xml_fs.AbstractFileSystem.o3fs.impl: org.apache.hadoop.fs.ozone.OzFs
+  OZONE-SITE.XML_hdds.datanode.dir: /data/storage
+  OZONE-SITE.XML_ozone.scm.datanode.id.dir: /data
+  OZONE-SITE.XML_ozone.metadata.dirs: /data/metadata
+  OZONE-SITE.XML_ozone.scm.block.client.address: ozone-scm-0.ozone-scm.default.svc.cluster.local
+  OZONE-SITE.XML_ozone.om.address: ozone-om-0.ozone-om
+  OZONE-SITE.XML_ozone.scm.client.address: ozone-scm-0.ozone-scm.default.svc.cluster.local
+  OZONE-SITE.XML_ozone.scm.names: ozone-scm-0.ozone-scm
+  OZONE-SITE.XML_ozone.enabled: "true"
+  OZONE-SITE.XML_hdds.scm.safemode.min.datanode: "3"
+  LOG4J.PROPERTIES_log4j.rootLogger: INFO, stdout
+  LOG4J.PROPERTIES_log4j.appender.stdout: org.apache.log4j.ConsoleAppender
+  LOG4J.PROPERTIES_log4j.appender.stdout.layout: org.apache.log4j.PatternLayout
+  LOG4J.PROPERTIES_log4j.appender.stdout.layout.ConversionPattern: '%d{yyyy-MM-dd
+    HH:mm:ss} %-5p %c{1}:%L - %m%n'
+  MAPRED-SITE.XML_mapreduce.application.classpath: /opt/hadoop/share/hadoop/mapreduce/*:/opt/hadoop/share/hadoop/mapreduce/lib/*:/opt/ozonefs/hadoop-ozone-filesystem-lib-current-0.5.0-SNAPSHOT.jar
+  HADOOP_JAAS_DEBUG: "true"
+  HADOOP_OPTS: -Dsun.security.krb5.debug=true
+  LOG4J.PROPERTIES_log4j.logger.org.apache.hadoop.security: DEBUG
+  OZONE-SITE.XML_hdds.scm.kerberos.principal: scm/ozone-scm-0.ozone-scm.default.svc.cluster.local@EXAMPLE.COM
+  OZONE-SITE.XML_hdds.scm.kerberos.keytab.file: /etc/security/keytabs/scm.keytab
+  OZONE-SITE.XML_hdds.scm.http.kerberos.principal: HTTP/ozone-scm-0.ozone-scm.default.svc.cluster.local@EXAMPLE.COM
+  OZONE-SITE.XML_hdds.scm.http.kerberos.keytab: /etc/security/keytabs/HTTP.keytab
+  OZONE-SITE.XML_ozone.om.kerberos.principal: om/ozone-om-0.ozone-om.default.svc.cluster.local@EXAMPLE.COM
+  OZONE-SITE.XML_ozone.om.kerberos.keytab.file: /etc/security/keytabs/om.keytab
+  OZONE-SITE.XML_ozone.om.http.kerberos.principal: HTTP/ozone-om-0.ozone-om.default.svc.cluster.local@EXAMPLE.COM
+  OZONE-SITE.XML_ozone.om.http.kerberos.keytab: /etc/security/keytabs/HTTP.keytab
+  OZONE-SITE.XML_ozone.s3g.keytab.file: /etc/security/keytabs/HTTP.keytab
+  OZONE-SITE.XML_ozone.s3g.authentication.kerberos.principal: HTTP/s3g@EXAMPLE.COM
+  OZONE-SITE.XML_ozone.recon.authentication.kerberos.principal: HTTP/recon@EXAMPLE.COM
+  OZONE-SITE.XML_ozone.recon.http.kerberos.keytab.file: /etc/security/keytabs/HTTP.keytab
+  OZONE-SITE.XML_ozone.recon.kerberos.keytab.file: /etc/security/keytabs/recon.keytab
+  OZONE-SITE.XML_ozone.recon.kerberos.principal: recon/recon@EXAMPLE.COM
+  OZONE-SITE.XML_ozone.security.enabled: "true"
+  OZONE-SITE.XML_ozone.acl.enabled: "true"
+  OZONE-SITE.XML_ozone.acl.authorizer.class: org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer
+  OZONE-SITE.XML_ozone.administrators: testuser/scm@EXAMPLE.COM
+  HDFS-SITE.XML_dfs.datanode.kerberos.principal: dn/dn@EXAMPLE.COM
+  HDFS-SITE.XML_dfs.datanode.keytab.file: /etc/security/keytabs/dn.keytab
+  CORE-SITE.XML_dfs.data.transfer.protection: authentication
+  CORE-SITE.XML_hadoop.security.authentication: kerberos
+  CORE-SITE.XML_hadoop.security.auth_to_local: RULE:[2:$1@$0](.*)s/.*/root/
+  CORE-SITE.XML_hadoop.security.authorization: "true"
+  HADOOP-POLICY.XML_ozone.om.security.client.protocol.acl: '*'
+  HADOOP-POLICY.XML_hdds.security.client.datanode.container.protocol.acl: '*'
+  HADOOP-POLICY.XML_hdds.security.client.scm.container.protocol.acl: '*'
+  HADOOP-POLICY.XML_hdds.security.client.scm.block.protocol.acl: '*'
+  HADOOP-POLICY.XML_hdds.security.client.scm.certificate.protocol.acl: '*'

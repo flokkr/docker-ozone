@@ -2,6 +2,7 @@ source:
 - path: ../..
 - url: github.com/flokkr/k8s
 import:
+- path: util
 - path: ozone
   transformations:
   - type: ozone/onenode

@@ -34,6 +34,8 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /data
+        - name: ozone-dev
+          mountPath: /opt/ozone
         - name: keytabs
           mountPath: /etc/security/keytabs
         - name: krb5conf
@@ -45,6 +47,9 @@ spec:
       volumes:
       - name: data
         emptyDir: {}
+      - name: ozone-dev
+        hostPath:
+          path: /home/elek/projects/ozone/hadoop-ozone/dist/target/ozone-0.6.0-SNAPSHOT
       - name: keytabs
         secret:
           secretName: ozone-datanode-keytabs

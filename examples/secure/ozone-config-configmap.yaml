@@ -10,7 +10,7 @@ data:
   OZONE-SITE.XML_ozone.scm.datanode.id.dir: /data
   OZONE-SITE.XML_ozone.metadata.dirs: /data/metadata
   OZONE-SITE.XML_ozone.scm.block.client.address: ozone-scm-0.ozone-scm.default.svc.cluster.local
-  OZONE-SITE.XML_ozone.om.address: ozone-om-0.ozone-om
+  OZONE-SITE.XML_ozone.om.address: ozone-om-0.ozone-om.default.svc.cluster.local
   OZONE-SITE.XML_ozone.scm.client.address: ozone-scm-0.ozone-scm.default.svc.cluster.local
   OZONE-SITE.XML_ozone.scm.names: ozone-scm-0.ozone-scm
   OZONE-SITE.XML_ozone.enabled: "true"
@@ -21,6 +21,14 @@ data:
   LOG4J.PROPERTIES_log4j.appender.stdout.layout.ConversionPattern: '%d{yyyy-MM-dd
     HH:mm:ss} %-5p %c{1}:%L - %m%n'
   MAPRED-SITE.XML_mapreduce.application.classpath: /opt/hadoop/share/hadoop/mapreduce/*:/opt/hadoop/share/hadoop/mapreduce/lib/*:/opt/ozonefs/hadoop-ozone-filesystem-lib-current-0.5.0-SNAPSHOT.jar
+  SSL-SERVER.XML_ssl.server.exclude.cipher.list: ^.*MD5.*$,^TLS_DH_.*$,^.*RC4.*$,^.*CCM.*$,^TLS_DHE.*$,^.*SHA$,^TLS_RSA_WITH.*$
+  OZONE-SITE.XML_ozone.http.policy: HTTPS_ONLY
+  OZONE-SITE.XML_dfs.http.policy: HTTPS_ONLY
+  SSL-SERVER.XML_ssl.server.keystore.location: /etc/ssl/keystore
+  SSL-SERVER.XML_ssl.server.truststore.location: /etc/ssl/keystore
+  SSL-SERVER.XML_ssl.server.keystore.password: Welcome1
+  SSL-SERVER.XML_ssl.server.keystore.keypassword: Welcome1
+  SSL-SERVER.XML_ssl.server.truststore.password: Welcome1
   HADOOP_JAAS_DEBUG: "true"
   HADOOP_OPTS: -Dsun.security.krb5.debug=true
   LOG4J.PROPERTIES_log4j.logger.org.apache.hadoop.security: DEBUG

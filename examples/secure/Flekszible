@@ -1,10 +1,28 @@
 source:
-- path: ../..
+- path: ../../flekszible
 - url: github.com/flokkr/k8s
 import:
+- path: ozonedev
+- path: ozone/tls
 - path: ozone
   transformations:
+  - type: ozone/devbuild
+    distpath: /home/elek/projects/ozone/hadoop-ozone/dist/target/ozone-0.6.0-SNAPSHOT
   - type: ozone/onenode
+  - type: add
+    trigger:
+      metadata:
+        name: ozone-om
+    path:
+     - spec
+     - template
+     - spec
+     - initContainers
+     - init
+     - env
+     - WAITFOR
+    value:
+     value: ozone-scm-0.ozone-scm:9877
   - type: image
     image: flokkr/ozone@sha256:74abe1431ea2e636de9f769a23278a385d1b09cb4f93fe870d375fa4bfb80f1f
   - type: ozone/usekeytabs
@@ -28,6 +46,22 @@ import:
         name: ozone-datanode
     secretName: ozone-datanode-keytabs
   - type: krb5/configure
+  - type: ozone/sslconfig
+  - type: ozone/sslmount
+    trigger:
+       metadata:
+         name: ozone-s3g
+    secretname: ozone-s3g-keystore
+  - type: ozone/sslmount
+    trigger:
+       metadata:
+         name: ozone-scm
+    secretname: ozone-scm-keystore
+  - type: ozone/sslmount
+    trigger:
+       metadata:
+         name: ozone-om
+    secretname: ozone-om-keystore
   - type: add
     trigger:
       metadata:
@@ -54,14 +88,14 @@ import:
       OZONE-SITE.XML_ozone.recon.http.kerberos.keytab.file: /etc/security/keytabs/HTTP.keytab
       OZONE-SITE.XML_ozone.recon.kerberos.keytab.file: /etc/security/keytabs/recon.keytab
       OZONE-SITE.XML_ozone.recon.kerberos.principal: recon/recon@EXAMPLE.COM
-      
+
       OZONE-SITE.XML_ozone.security.enabled: "true"
-      
+
       OZONE-SITE.XML_ozone.acl.enabled: "true"
       OZONE-SITE.XML_ozone.acl.authorizer.class: org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer
-      
+
       OZONE-SITE.XML_ozone.administrators: "testuser/scm@EXAMPLE.COM"
-      
+
       HDFS-SITE.XML_dfs.datanode.kerberos.principal: dn/dn@EXAMPLE.COM
       HDFS-SITE.XML_dfs.datanode.keytab.file: /etc/security/keytabs/dn.keytab
 
@@ -77,5 +111,16 @@ import:
       HADOOP-POLICY.XML_hdds.security.client.scm.container.protocol.acl: "*"
       HADOOP-POLICY.XML_hdds.security.client.scm.block.protocol.acl: "*"
       HADOOP-POLICY.XML_hdds.security.client.scm.certificate.protocol.acl: "*"
+
       OZONE-SITE.XML_ozone.scm.client.address: ozone-scm-0.ozone-scm.default.svc.cluster.local
       OZONE-SITE.XML_ozone.scm.block.client.address: ozone-scm-0.ozone-scm.default.svc.cluster.local
+      OZONE-SITE.XML_ozone.om.address: ozone-om-0.ozone-om.default.svc.cluster.local
+
+      SSL-SERVER.XML_ssl.server.exclude.cipher.list: ^.*MD5.*$,^TLS_DH_.*$,^.*RC4.*$,^.*CCM.*$,^TLS_DHE.*$,^.*SHA$,^TLS_RSA_WITH.*$
+      OZONE-SITE.XML_ozone.http.policy: HTTPS_ONLY
+      OZONE-SITE.XML_dfs.http.policy: HTTPS_ONLY
+      SSL-SERVER.XML_ssl.server.keystore.location: /etc/ssl/keystore
+      SSL-SERVER.XML_ssl.server.truststore.location: /etc/ssl/keystore
+      SSL-SERVER.XML_ssl.server.keystore.password: Welcome1
+      SSL-SERVER.XML_ssl.server.keystore.keypassword: Welcome1
+      SSL-SERVER.XML_ssl.server.truststore.password: Welcome1

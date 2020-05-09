@@ -1,5 +1,8 @@
-name: ozone/dev
+name: ozone/devbuild
 description: Run Ozone from local build via docker volume mounts
+parameters:
+ - name: distpath
+   description: path of the distribution dir
 ---
 - type: image
   image: elek/ozone-runner
@@ -12,7 +15,7 @@ description: Run Ozone from local build via docker volume mounts
   value:
     - name: ozone-dev
       hostPath:
-        path: /home/elek/projects/ozone/hadoop-ozone/dist/target/ozone-0.5.0-SNAPSHOT
+        path: {{ .distpath }}
 - type: add
   path:
       - spec

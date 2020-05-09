@@ -1,0 +1,50 @@
+name: ozone/tls
+description: SSL configuration and keystore generation for Ozone
+---
+- type: ozone/sslconfig
+- type: ozone/sslmount
+  trigger:
+     metadata:
+       name: ozone-s3g
+  secretname: ozone-s3g-keystore
+- type: ozone/sslmount
+  trigger:
+     metadata:
+       name: ozone-scm
+  secretname: ozone-scm-keystore
+- type: ozone/sslmount
+  trigger:
+     metadata:
+       name: ozone-om
+  secretname: ozone-om-keystore
+- type: add
+  trigger:
+    metadata:
+      name: ozone-config
+  path: ["data"]
+  value:
+    OZONE-SITE.XML_ozone.scm.client.address: ozone-scm-0.ozone-scm.default.svc.cluster.local
+    OZONE-SITE.XML_ozone.scm.block.client.address: ozone-scm-0.ozone-scm.default.svc.cluster.local
+    OZONE-SITE.XML_ozone.om.address: ozone-om-0.ozone-om.default.svc.cluster.local
+    SSL-SERVER.XML_ssl.server.exclude.cipher.list: ^.*MD5.*$,^TLS_DH_.*$,^.*RC4.*$,^.*CCM.*$,^TLS_DHE.*$,^.*SHA$,^TLS_RSA_WITH.*$
+    OZONE-SITE.XML_ozone.http.policy: HTTPS_ONLY
+    OZONE-SITE.XML_dfs.http.policy: HTTPS_ONLY
+    SSL-SERVER.XML_ssl.server.keystore.location: /etc/ssl/keystore
+    SSL-SERVER.XML_ssl.server.truststore.location: /etc/ssl/keystore
+    SSL-SERVER.XML_ssl.server.keystore.password: Welcome1
+    SSL-SERVER.XML_ssl.server.keystore.keypassword: Welcome1
+    SSL-SERVER.XML_ssl.server.truststore.password: Welcome1
+- type: add
+  trigger:
+      metadata:
+        name: ozone-om
+  path:
+     - spec
+     - template
+     - spec
+     - initContainers
+     - init
+     - env
+     - WAITFOR
+  value:
+     value: ozone-scm-0.ozone-scm:9877

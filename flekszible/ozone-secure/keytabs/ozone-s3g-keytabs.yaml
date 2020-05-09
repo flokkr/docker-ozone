@@ -1,0 +1,7 @@
+keytabs:
+  - name: s3g.keytab
+    principals:
+        - om/ozone-s3g-0@EXAMPLE.COM
+  - name: HTTP.keytab
+    principals:
+        - HTTP/ozone-s3g-0@EXAMPLE.COM

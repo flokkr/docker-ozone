@@ -1,0 +1,10 @@
+keytabs:
+  - name: scm.keytab
+    principals:
+        - scm/ozone-scm-0.ozone-scm.default.svc.cluster.local@EXAMPLE.COM
+  - name: HTTP.keytab
+    principals:
+        - HTTP/ozone-scm-0.ozone-scm.default.svc.cluster.local@EXAMPLE.COM
+  - name: test.keytab
+    principals:
+        - testuser/scm@EXAMPLE.COM

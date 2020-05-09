@@ -34,9 +34,14 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /data
+        - name: smoketest
+          mountPath: /opt/smoketest
         envFrom:
         - configMapRef:
             name: ozone-config
       volumes:
       - name: data
         emptyDir: {}
+      - name: smoketest
+        hostPath:
+          path: /home/elek/projects/flokkr/docker-ozone/examples/simple/smoketest

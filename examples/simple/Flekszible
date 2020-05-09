@@ -1,8 +1,7 @@
 source:
-- path: ../..
-- url: github.com/flokkr/k8s
+- path: ../../flekszible
 import:
-- path: util
+- path: testutil
 - path: ozone
   transformations:
   - type: ozone/onenode

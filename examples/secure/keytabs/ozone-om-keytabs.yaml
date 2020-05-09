@@ -1,7 +1,0 @@
-keytabs:
-  - name: om.keytab
-    principals:
-        - om/ozone-om-0.ozone-om.default.svc.cluster.local@EXAMPLE.COM
-  - name: HTTP.keytab
-    principals:
-        - HTTP/ozone-om-0.ozone-om.default.svc.cluster.local@EXAMPLE.COM

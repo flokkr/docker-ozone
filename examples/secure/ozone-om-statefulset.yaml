@@ -36,8 +36,6 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /data
-        - name: ozone-dev
-          mountPath: /opt/ozone
         - name: keytabs
           mountPath: /etc/security/keytabs
         - name: krb5conf
@@ -45,6 +43,8 @@ spec:
           subPath: krb5.conf
         - name: ssl
           mountPath: /etc/ssl
+        - name: smoketest
+          mountPath: /opt/smoketest
         envFrom:
         - configMapRef:
             name: ozone-config
@@ -57,8 +57,6 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /data
-        - name: ozone-dev
-          mountPath: /opt/ozone
         - name: keytabs
           mountPath: /etc/security/keytabs
         - name: krb5conf
@@ -66,15 +64,14 @@ spec:
           subPath: krb5.conf
         - name: ssl
           mountPath: /etc/ssl
+        - name: smoketest
+          mountPath: /opt/smoketest
         envFrom:
         - configMapRef:
             name: ozone-config
       volumes:
       - name: data
         emptyDir: {}
-      - name: ozone-dev
-        hostPath:
-          path: /home/elek/projects/ozone/hadoop-ozone/dist/target/ozone-0.6.0-SNAPSHOT
       - name: keytabs
         secret:
           secretName: ozone-om-keytabs
@@ -84,3 +81,6 @@ spec:
       - name: ssl
         secret:
           secretName: ozone-om-keystore
+      - name: smoketest
+        hostPath:
+          path: /home/elek/projects/flokkr/docker-ozone/examples/smoketest

@@ -1,0 +1,5 @@
+source:
+- path: ../../flekszible
+- url: github.com/flokkr/docker-krb5
+import:
+- path: krb5-server

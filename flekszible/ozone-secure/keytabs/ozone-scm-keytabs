@@ -1,0 +1,3 @@
+scm.keytab scm/ozone-scm-0.ozone-scm.default.svc.cluster.local@EXAMPLE.COM
+HTTP.keytab HTTP/ozone-scm-0.ozone-scm.default.svc.cluster.local@EXAMPLE.COM
+test.keytab testuser/scm@EXAMPLE.COM

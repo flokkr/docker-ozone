@@ -1,0 +1,2 @@
+s3g.keytab s3g/ozone-s3g-0@EXAMPLE.COM
+HTTP.keytab HTTP/ozone-s3g-0@EXAMPLE.COM

@@ -1,0 +1,2 @@
+om.keytab om/ozone-om-0.ozone-om.default.svc.cluster.local@EXAMPLE.COM
+HTTP.keytab HTTP/ozone-om-0.ozone-om.default.svc.cluster.local@EXAMPLE.COM

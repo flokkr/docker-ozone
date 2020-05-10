@@ -1,0 +1,2 @@
+dn.keytab dn/dn@EXAMPLE.COM
+HTTP.keytab HTTP/dn@EXAMPLE.COM

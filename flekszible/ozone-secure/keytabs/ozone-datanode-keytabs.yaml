@@ -1,7 +1,0 @@
-keytabs:
-  - name: dn.keytab
-    principals:
-        - dn/dn@EXAMPLE.COM
-  - name: HTTP.keytab
-    principals:
-        - HTTP/dn@EXAMPLE.COM

@@ -1,4 +1,4 @@
-name: util/mounttests
+name: testutil/mounttests
 description: Run Ozone from local build via docker volume mounts
 parameter:
   - name: path

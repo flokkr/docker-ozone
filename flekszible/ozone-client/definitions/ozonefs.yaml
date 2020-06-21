@@ -94,8 +94,6 @@ parameters:
 - type: Add
   path:
   - spec
-  - template
-  - spec
   - containers
   - ".*"
   - env

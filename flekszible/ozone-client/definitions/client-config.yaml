@@ -1,0 +1,25 @@
+name: ozone/client-config
+description: Configuration required by Ozone clients
+---
+- type: add
+  path:
+    - spec
+    - template
+    - spec
+    - (initC|c)ontainers
+    - .*
+    - envFrom
+  value:
+    - configMapRef:
+        name: ozone-client-config
+- type: add
+  path:
+    - spec
+    - (initC|c)ontainers
+    - .*
+    - envFrom
+  value:
+    - configMapRef:
+        name: ozone-client-config
+
+

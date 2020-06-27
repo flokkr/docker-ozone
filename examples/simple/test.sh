@@ -26,7 +26,8 @@ export RESULT_DIR=${RESULT_DIR:-"$K8S_DIR/result"}
 rm -rf "$RESULT_DIR"
 mkdir -p "$RESULT_DIR"
 
-flekszible -s "$K8S_DIR" -d "$K8S_DIR" generate -t util/mounttests:path="$K8S_DIR/smoketest"
+SMOKETEST_DIR=$(realpath $K8S_DIR/../smoketest)
+flekszible -s "$K8S_DIR" -d "$K8S_DIR" generate -t "mount:hostPath=$SMOKETEST_DIR,path=/opt/smoketest"
 
 kubectl apply -f "$K8S_DIR"
 

@@ -32,7 +32,7 @@ parameters:
       command:
         - bash
         - "-c"
-        - "cp /opt/ozone/share/ozone/lib/hadoop-ozone-filesystem-lib-current-*.jar /opt/ozonefs/hadoop-ozone-filesystem-lib-current.jar"
+        - "cp share/ozone/lib/hadoop-ozone-filesystem-hadoop3-*.jar /opt/ozonefs/hadoop-ozone-filesystem-hadoop3.jar"
 - type: Add
   path:
     - spec
@@ -60,8 +60,8 @@ parameters:
   - spec
   - containers
   - ".*"
+  - env
   value:
-     env:
-       - name: HADOOP_CLASSPATH
-         value: /opt/ozonefs/hadoop-ozone-filesystem-lib-current.jar
+    - name: HADOOP_CLASSPATH
+      value: /opt/ozonefs/hadoop-ozone-filesystem-lib-current.jar
   

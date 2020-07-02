@@ -1,0 +1,25 @@
+name: ozone/ha
+description: HA configuration for ozone master services
+---
+- type: add
+  trigger:
+     metadata:
+        name: ozone-config
+  path:
+    - data
+  value:
+    OZONE-SITE.XML_ozone.om.service.ids: omservice
+    OZONE-SITE.XML_ozone.om.nodes.omservice: om1,om2,om3
+    OZONE-SITE.XML_ozone.om.address.omservice.om1: ozone-om-0.ozone-om.default.svc.cluster.local
+    OZONE-SITE.XML_ozone.om.address.omservice.om2: ozone-om-1.ozone-om.default.svc.cluster.local
+    OZONE-SITE.XML_ozone.om.address.omservice.om3: ozone-om-2.ozone-om.default.svc.cluster.local
+    OZONE-SITE.XML_ozone.om.ratis.enable: "true"
+- type: add
+  trigger:
+    metadata:
+      name: ozone-om
+    kind: StatefulSet
+  path:
+    - spec
+  value:
+    replicas: 3

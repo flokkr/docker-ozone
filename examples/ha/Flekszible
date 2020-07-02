@@ -1,0 +1,13 @@
+source:
+- path: ../../flekszible
+import:
+- path: testutil
+- path: ozone-dev
+- path: ozone
+  transformations:
+  - type: ozone/onenode
+  - type: ozone/ha
+  - type: ozone/devbuild
+    distpath: /home/elek/projects/ozone/hadoop-ozone/dist/target/ozone-0.6.0-SNAPSHOT/
+  - type: image
+    image: elek/ozone-dev:be8a2fcc8

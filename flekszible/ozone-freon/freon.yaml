@@ -36,14 +36,6 @@ spec:
         prometheus.io/port: "9884"
         prometheus.io/path: "/prom"
     spec:
-        initContainers:
-        - name: wait
-          image: "flokkr/ozone"
-          args: ["ozone","scmcli", "safemode", "wait"]
-          env: []
-          envFrom:
-            - configMapRef:
-                name: ozone-config
         containers:
         - name: ozone
           image: "flokkr/ozone"

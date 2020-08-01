@@ -63,5 +63,5 @@ parameters:
   - env
   value:
     - name: HADOOP_CLASSPATH
-      value: /opt/ozonefs/hadoop-ozone-filesystem-lib-current.jar
+      value: /opt/ozonefs/hadoop-ozone-filesystem-hadoop3.jar
   

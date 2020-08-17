@@ -16,9 +16,9 @@
 name: ozone/ozonefs
 description: copy ozonefs jar file to a temporary emptydir volume
 parameters:
-  name: image
-  type: string
-  default: flokkr/ozonefs
+  - name: image
+    type: string
+    default: flokkr/ozonefs
 ---
 - type: Add
   path:

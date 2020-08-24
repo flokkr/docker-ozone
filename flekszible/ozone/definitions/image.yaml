@@ -1,0 +1,21 @@
+name: ozone/image
+description: Replace docker image of the ozone components
+parameters:
+  - name: image
+    required: true
+---
+- type: image
+  image: {{ .image }}
+  trigger:
+    metadata:
+      labels:
+        app: ozone
+- type: replace
+  path:
+    - spec
+    - template
+    - spec
+    - initContainers
+    - ozonefscopy
+    - image
+  value: {{ .image }}

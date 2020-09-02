@@ -13,12 +13,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: ozone/ozonefs
+name: ozone/ozonefs-pod
 description: copy ozonefs jar file to a temporary emptydir volume
 parameters:
-  name: image
-  type: string
-  default: flokkr/ozonefs
+  - name: image
+    type: string
+    default: flokkr/ozone
 ---
 - type: Add
   path:
@@ -32,7 +32,7 @@ parameters:
       command:
         - bash
         - "-c"
-        - "cp /opt/ozone/share/ozone/lib/hadoop-ozone-filesystem-lib-current-*.jar /opt/ozonefs/hadoop-ozone-filesystem-lib-current.jar"
+        - "cp share/ozone/lib/hadoop-ozone-filesystem-hadoop2-*.jar /opt/ozonefs/hadoop-ozone-filesystem.jar"
 - type: Add
   path:
     - spec
@@ -60,8 +60,43 @@ parameters:
   - spec
   - containers
   - ".*"
+  - env
   value:
-     env:
-       - name: HADOOP_CLASSPATH
-         value: /opt/ozonefs/hadoop-ozone-filesystem-lib-current.jar
-  
+    - name: HADOOP_CLASSPATH
+      value: /opt/ozonefs/hadoop-ozone-filesystem.jar  
+- type: Add
+  path:
+    - spec
+    - initContainers
+  value:
+    - name: ozonefscopy
+      image: {{.image}}
+      command:
+        - bash
+        - "-c"
+        - "cp share/ozone/lib/hadoop-ozone-filesystem-hadoop2-*.jar /opt/ozonefs/hadoop-ozone-filesystem.jar"
+- type: Add
+  path:
+    - spec
+    - (initContainers|containers)
+    - "*"
+    - volumeMounts
+  value:
+    - name: ozonefs
+      mountPath: /opt/ozonefs
+- type: Add
+  path:
+    - spec
+    - volumes
+  value:
+    - name: ozonefs
+      emptyDir: {}
+- type: Add
+  path:
+  - spec
+  - containers
+  - ".*"
+  - env
+  value:
+    - name: HADOOP_CLASSPATH
+      value: /opt/ozonefs/hadoop-ozone-filesystem.jar

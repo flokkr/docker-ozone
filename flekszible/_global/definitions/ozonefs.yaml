@@ -16,9 +16,13 @@
 name: ozone/ozonefs
 description: copy ozonefs jar file to a temporary emptydir volume
 parameters:
-  name: image
-  type: string
-  default: flokkr/ozonefs
+  - name: image
+    type: string
+    default: flokkr/ozone
+  - name: hadoop
+    type: string
+    default: 3
+    description: Hadoop version (2 or 3)
 ---
 - type: Add
   path:
@@ -32,7 +36,7 @@ parameters:
       command:
         - bash
         - "-c"
-        - "cp share/ozone/lib/hadoop-ozone-filesystem-hadoop2-*.jar /opt/ozonefs/hadoop-ozone-filesystem.jar"
+        - "cp share/ozone/lib/hadoop-ozone-filesystem-hadoop{{ .hadoop }}-*.jar /opt/ozonefs/hadoop-ozone-filesystem.jar"
 - type: Add
   path:
     - spec
@@ -64,39 +68,3 @@ parameters:
   value:
     - name: HADOOP_CLASSPATH
       value: /opt/ozonefs/hadoop-ozone-filesystem.jar  
-- type: Add
-  path:
-    - spec
-    - initContainers
-  value:
-    - name: ozonefscopy
-      image: {{.image}}
-      command:
-        - bash
-        - "-c"
-        - "cp share/ozone/lib/hadoop-ozone-filesystem-hadoop2-*.jar /opt/ozonefs/hadoop-ozone-filesystem.jar"
-- type: Add
-  path:
-    - spec
-    - (initContainers|containers)
-    - "*"
-    - volumeMounts
-  value:
-    - name: ozonefs
-      mountPath: /opt/ozonefs
-- type: Add
-  path:
-    - spec
-    - volumes
-  value:
-    - name: ozonefs
-      emptyDir: {}
-- type: Add
-  path:
-  - spec
-  - containers
-  - ".*"
-  - env
-  value:
-    - name: HADOOP_CLASSPATH
-      value: /opt/ozonefs/hadoop-ozone-filesystem.jar

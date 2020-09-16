@@ -1,7 +1,7 @@
 name: ozone/sslmount
 description: Mount generated ssl directories to the server
 parameters:
-   name: secretname
+   - name: secretname
 ---
 - type: add
   path:

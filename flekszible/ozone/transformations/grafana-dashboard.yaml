@@ -2,3 +2,12 @@
   scope: global
   optional: true
   configmap: ozone-dashboard
+- type: add
+  trigger:
+    metadata:
+      name: ozone-dashboard
+  path:
+    - metadata
+    - labels
+  value:
+    granfana: dashboard

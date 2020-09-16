@@ -10,4 +10,4 @@
     - metadata
     - labels
   value:
-    granfana: dashboard
+    grafana: dashboard

@@ -3,6 +3,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ozone-config
+  labels:
+    app: ozone
+    component: config
 data:
   CORE-SITE.XML_fs.defaultFS: o3fs://bucket1.vol1.ozone-om-0.ozone-om/
   CORE-SITE.xml_fs.AbstractFileSystem.o3fs.impl: org.apache.hadoop.fs.ozone.OzFs

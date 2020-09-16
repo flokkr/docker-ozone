@@ -4,4 +4,3 @@ import:
 - path: ozone
   transformations:
   - type: ozone/onenode
-- path: ozone-dev

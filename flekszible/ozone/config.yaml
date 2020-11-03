@@ -33,6 +33,8 @@ data:
   OZONE-SITE.XML_ozone.scm.names: "ozone-scm-0.ozone-scm"
   OZONE-SITE.XML_ozone.enabled: "true"
   OZONE-SITE.XML_hdds.scm.safemode.min.datanode: "3"
+  OZONE-SITE.XML_ozone.om.http-address: ozone-om-0.ozone-om:9874
+  OZONE-SITE.XML_ozone.recon.address: ozone-recon-0.ozone-recon
   LOG4J.PROPERTIES_log4j.rootLogger: "INFO, stdout"
   LOG4J.PROPERTIES_log4j.appender.stdout: "org.apache.log4j.ConsoleAppender"
   LOG4J.PROPERTIES_log4j.appender.stdout.layout: "org.apache.log4j.PatternLayout"

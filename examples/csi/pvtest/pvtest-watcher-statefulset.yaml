@@ -1,0 +1,40 @@
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pvtest-watcher
+  labels:
+    app: pvtest
+    component: watcher
+spec:
+  serviceName: pvtest-watcher
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pvtest
+      component: watcher
+  template:
+    metadata:
+      labels:
+        app: pvtest
+        component: watcher
+    spec:
+      containers:
+      - name: web
+        image: python:3.7.3-alpine3.8
+        args:
+        - watch
+        - ls -lah /data
+        volumeMounts:
+        - mountPath: /data
+          name: pvtest-data
+  volumeClaimTemplates:
+  - metadata:
+      name: pvtest-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 8Gi
+      storageClassName: ozone

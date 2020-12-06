@@ -1,0 +1,12 @@
+source:
+- path: ../../flekszible
+import:
+- path: ozone
+  transformations:
+  - type: ozone/csi
+  - type: publishservice
+    trigger:
+       metadata:
+          name: ozone-s3g
+- path: ozone-csi
+

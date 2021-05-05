@@ -1,8 +1,8 @@
 name: ozone
 basetag: 42
-urlpath: hadoop/ozone/ozone-%s/hadoop-ozone-%s.tar.gz
+urlpath: ozone/%s/ozone-%s.tar.gz
 containers:
    - flokkr/ozone
 git: https://github.com/flokkr/docker-ozone
 versions:
-  - 1.0.0
+  - 1.1.0

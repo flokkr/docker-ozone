@@ -62,10 +62,6 @@ Test ozone shell
                     Should contain      ${result}       creationTime
 # TODO: Disable updating the owner, acls should be used to give access to other user.        
                     Execute             ozone sh volume update ${protocol}${server}/${volume} --quota 10TB
-#    ${result} =     Execute             ozone sh volume info ${protocol}${server}/${volume} | jq -r '. | select(.volumeName=="${volume}") | .owner | .name'
-#                    Should Be Equal     ${result}       bill
-    ${result} =     Execute             ozone sh volume info ${protocol}${server}/${volume} | jq -r '. | select(.name=="${volume}") | .quota'
-                    Should Be Equal     ${result}       10995116277760
                     Execute             ozone sh bucket create ${protocol}${server}/${volume}/bb1
     ${result} =     Execute             ozone sh bucket info ${protocol}${server}/${volume}/bb1 | jq -r '. | select(.name=="bb1") | .storageType'
                     Should Be Equal     ${result}       DISK

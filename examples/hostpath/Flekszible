@@ -1,0 +1,7 @@
+source:
+- path: ../../flekszible
+import:
+- path: ozone
+  transformations:
+  - type: ozone/onenode
+  - type: ozone/hostpath
